@@ -174,13 +174,26 @@ a{color:var(--brand)}
 .nav .ext{font-size:11px;color:var(--ink-3);margin-left:auto}
 .side-foot{padding:14px 18px;border-top:1px solid var(--line-2);font-size:11px;color:var(--ink-3)}
 .side-foot strong{display:block;color:var(--ink-2);font-size:12px;margin-bottom:3px}
-.theme-btn{
-  position:absolute;top:16px;right:24px;z-index:100;
+.top-tools{position:absolute;top:16px;right:24px;z-index:100;display:flex;gap:8px}
+.theme-btn,.glossary-btn{
   min-height:36px;padding:0 16px;margin:0;
   border:1px solid var(--line);background:var(--card);border-radius:8px;
   color:var(--ink-2);font-size:12.5px;font-weight:600;
 }
-.theme-btn:hover{background:var(--brand-pale);color:var(--brand)}
+.theme-btn:hover,.glossary-btn:hover{background:var(--brand-pale);color:var(--brand)}
+.glossary-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.32);z-index:998;opacity:0;pointer-events:none;transition:opacity .2s}
+.glossary-backdrop.open{opacity:1;pointer-events:auto}
+.glossary-drawer{position:fixed;z-index:999;top:0;right:0;width:min(420px,92vw);height:100vh;overflow:auto;
+  padding:22px;background:var(--card);border-left:1px solid var(--line);box-shadow:-12px 0 32px rgba(15,23,42,.18);
+  transform:translateX(102%);transition:transform .22s ease}
+.glossary-drawer.open{transform:translateX(0)}
+.glossary-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.glossary-head h2{font-size:19px}.glossary-close{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;min-width:40px;min-height:40px;font-size:20px}
+.glossary-intro{font-size:12.5px;color:var(--ink-3);line-height:1.65;margin:0 0 14px}
+.glossary-list{display:grid;gap:8px}.glossary-list details{border:1px solid var(--line);border-radius:8px;background:var(--card-2)}
+.glossary-list summary{padding:11px 13px;font-size:13.5px;font-weight:800;cursor:pointer;color:var(--ink)}
+.glossary-list details div{padding:0 13px 13px;font-size:12.5px;line-height:1.7;color:var(--ink-2)}
+.glossary-list .source{display:block;margin-top:5px;color:var(--ink-3);font-size:11.5px}
 /* 메인 페이지로 나가는 문.
    아래 메뉴(.nav)에 섞지 않은 것은 일부러입니다 — 저기 있는 「홈」은 이 대시보드 안의
    홈 화면이라, 나란히 두면 어느 쪽이 밖으로 나가는 문인지 알 수 없습니다.
@@ -428,19 +441,28 @@ table.data .hl{color:var(--brand);font-weight:800}
 @media (max-width:600px){.news-grid{grid-template-columns:1fr;}}
 .ai-output{white-space:pre-wrap;word-break:keep-all;min-height:96px;margin-top:12px;padding:14px;
   border:1px solid var(--line);border-radius:8px;background:var(--bg);font:inherit;line-height:1.75;color:var(--ink)}
+.ai-briefing{margin-top:14px;border:2px solid var(--brand);background:linear-gradient(135deg,var(--brand-pale),var(--card) 68%);position:relative;overflow:hidden}
+.ai-briefing::after{content:"AI";position:absolute;right:18px;top:5px;font-size:54px;font-weight:900;color:var(--brand);opacity:.06;pointer-events:none}
+.ai-kicker{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 9px;background:var(--brand);color:var(--leap-on-fill);font-size:11px;font-weight:800;margin-bottom:8px}
+.ai-purpose{font-size:13px;line-height:1.7;color:var(--ink-2);max-width:820px;margin:0}
+.ai-purpose-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:12px 0}
+.ai-purpose-list span{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 9px;font-size:11.5px;font-weight:700;color:var(--ink-2)}
+.ai-context-preview{border-left:3px solid var(--brand);padding:8px 10px;background:var(--card);font-size:11.5px;line-height:1.55;color:var(--ink-3);margin-bottom:10px}
+.result-actions{display:flex;justify-content:flex-end;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
 @media (max-width:720px){
   .dummy-banner{padding:8px 12px}.shell{display:block;min-height:0}
   .sidebar{width:auto;min-height:0;display:block;border-right:0;border-bottom:1px solid var(--line)}
   .brand{padding:12px 60px 8px 12px}.brand .brand-header{margin-bottom:4px}.brand .mk{width:30px;height:30px}
   .home-link{padding:8px 12px}.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:8px}
   .nav button,.nav a{margin:0;padding:8px;min-height:44px;font-size:12px}.nav .ext,.side-foot{display:none}
-  .theme-btn{position:fixed;top:10px;right:10px;padding:0 10px;background:var(--card)}
+  .top-tools{position:fixed;top:10px;right:10px;gap:5px}.theme-btn,.glossary-btn{padding:0 9px;background:var(--card);font-size:11px}
   .main{padding:18px 12px 40px}.page-head{padding-right:96px}.page-head h1{font-size:19px}
   .card{padding:14px 12px}.kpi{grid-template-columns:1fr}.map-toolbar{align-items:stretch}
   .map-toolbar .select,.map-toolbar input{max-width:100%;min-height:44px}.map-note{width:100%;margin-left:0}
   .sig-grid{grid-template-columns:repeat(3,1fr)}.era-row{gap:6px}.era .badge{padding:3px 8px}
   .era .yr select{font-size:17px}.era .tot{font-size:16px}.bars{gap:6px}
   .src-tbl{min-width:620px}.src-box{overflow-x:auto}
+  .ai-purpose-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 .chip.chip-ext:not([aria-pressed="true"]) { border-color: var(--over); color: var(--over); }
 .panel{border:1px solid var(--line);border-radius:9px;padding:13px 14px;background:var(--card)}
@@ -498,7 +520,7 @@ table.data .hl{color:var(--brand);font-weight:800}
   }
   @page{margin:14mm}
   body{font-size:10pt;background:#fff}
-  .no-print,.sidebar,.theme-btn,.map-toolbar .chip,#home-reset,#sim-clear{display:none !important}
+  .no-print,.sidebar,.top-tools,.glossary-drawer,.glossary-backdrop,.map-toolbar .chip,#home-reset,#sim-clear{display:none !important}
   .shell{display:block}
   .main{padding:0}
   .card{border:1px solid #999;box-shadow:none;break-inside:avoid;page-break-inside:avoid;margin-bottom:8mm}
@@ -528,6 +550,24 @@ table.data .hl{color:var(--brand);font-weight:800}
 </head>
 <body>
 <div id="custom-school-tooltip" class="custom-school-tooltip"></div>
+
+<div class="glossary-backdrop no-print" id="glossary-backdrop"></div>
+<aside class="glossary-drawer no-print" id="glossary-drawer" aria-hidden="true" aria-label="용어 도움말">
+  <div class="glossary-head">
+    <h2>용어 도움말</h2>
+    <button type="button" class="glossary-close" id="glossary-close" aria-label="용어 도움말 닫기">×</button>
+  </div>
+  <p class="glossary-intro">대시보드에서 사용하는 교육·인구 용어를 가나다순으로 정리했습니다. 수치의 출처와 예측의 한계는 각 화면의 ‘자료 출처’도 함께 확인해 주세요.</p>
+  <div class="glossary-list">
+    <details><summary>교원 수</summary><div>학교알리미 공시의 교원 현황을 학교별로 합산한 값입니다. 현재 전체 KPI는 유치원 교원을 제외합니다.<span class="source">출처: 학교알리미 공시</span></div></details>
+    <details><summary>인구감소지역</summary><div>인구·재정·지역 여건 등을 종합해 정부가 지정한 지역을 말합니다. 현재 화면의 표시는 고시 원문과 기준연도를 다시 대조하기 전 임시 참고값입니다.<span class="source">출처 확인 예정: 행정안전부 인구감소지역 지정 고시</span></div></details>
+    <details><summary>장래 학생수</summary><div>선택한 연도까지 시군·학교급별 임시 감소율을 적용한 모의값입니다. 출생 코호트와 전입·전출을 반영한 확정 예측이 아니므로 정책 결정의 단독 근거로 사용하면 안 됩니다.<span class="source">향후 출생아수·과거 학년별 실적·이동자료로 코호트 예측 예정</span></div></details>
+    <details><summary>적정규모학교</summary><div>학생 수와 소재지 기준에 따라 교육과정 운영 여건을 검토하기 위한 분류입니다. 학교 통폐합을 자동 결정하는 기준이 아니라 검토 신호입니다.<span class="source">출처: 2026년 경상북도교육청 적정규모 학교 육성 계획(내부 원문 확인 필요)</span></div></details>
+    <details><summary>초등학교</summary><div>초등 보통교육을 실시하는 6년제 학교입니다. 이 화면의 학교·학생·학급 값은 학교알리미 공시 자료를 사용합니다.<span class="source">출처: 초·중등교육법, 학교알리미</span></div></details>
+    <details><summary>학생 수</summary><div>해당 학교에 재학 중인 학생을 학교별·학교급별로 합산한 값입니다. 학령인구와는 범위가 다릅니다.<span class="source">출처: 학교알리미 2026 공시</span></div></details>
+    <details><summary>학령인구</summary><div>이 대시보드에서는 초·중·고교 학령에 해당하는 6~18세 인구를 뜻합니다. 실제 재학생 수와 같지 않습니다.<span class="source">출처: KOSIS 주민등록인구 및 장래인구추계</span></div></details>
+  </div>
+</aside>
 
 <div class="shell">
   <!-- ================= 사이드바 ================= -->
@@ -564,7 +604,10 @@ table.data .hl{color:var(--brand);font-weight:800}
   </nav>
 
   <main class="main">
-    <button type="button" class="theme-btn no-print" id="theme-toggle">화면 밝기 전환</button>
+    <div class="top-tools no-print">
+      <button type="button" class="glossary-btn" id="glossary-toggle" aria-expanded="false" aria-controls="glossary-drawer">용어 도움말</button>
+      <button type="button" class="theme-btn" id="theme-toggle">화면 밝기 전환</button>
+    </div>
 
   <!-- ================= 1. 홈 ================= -->
   <section id="view-home" class="view">
@@ -642,17 +685,17 @@ table.data .hl{color:var(--brand);font-weight:800}
             <input type="text" id="home-search" class="select" placeholder="학교 검색..." style="margin-left:8px; padding:4px 8px; border:1px solid var(--line); border-radius:4px; font-size:13px; width:120px;">
             <button type="button" class="chip" id="home-metric-sch" aria-pressed="true">학교 수</button>
             <button type="button" class="chip" id="home-metric-stu" aria-pressed="false">학생 수</button>
-            <button type="button" class="chip" id="map-mode-offline" aria-pressed="true">오프라인 경계 지도</button>
-            <button type="button" class="chip" id="map-mode-online" aria-pressed="false">온라인 SGIS 지도</button>
+            <button type="button" class="chip" id="map-mode-offline" aria-pressed="true" title="인터넷 연결이 없어도 사용할 수 있는 경계 지도">간편 지도</button>
+            <button type="button" class="chip" id="map-mode-online" aria-pressed="false" title="SGIS를 이용해 실제 학교 위치를 표시하는 지도">실제 위치 지도</button>
             <button type="button" class="chip" id="home-reset" hidden>← 경북 전체로</button>
             <span class="map-note" id="map-help">타일을 선택하면 시군 상세로 전환됩니다</span>
-            <span class="map-status" id="sgis-status" aria-live="polite">오프라인 지도 사용 중</span>
+            <span class="map-status" id="sgis-status" aria-live="polite">간편 지도 사용 중 · 인터넷 연결 없이도 작동합니다</span>
           </div>
 
           <!-- 전체 보기: 시군 타일 -->
           <div id="home-tilemap" class="mapbox" role="group" aria-label="경상북도 시군 지도"></div>
 
-          <!-- 온라인 보기: SGIS 지도. SGIS를 못 불러오면 표시하지 않고 위 지도를 유지합니다. -->
+          <!-- 실제 위치 보기: SGIS 지도. SGIS를 못 불러오면 표시하지 않고 간편 지도를 유지합니다. -->
           <div id="home-online-map" class="mapbox online-map" hidden role="application" aria-label="SGIS 온라인 경상북도 학교 지도"></div>
 
           <!-- 시군 상세: 학교 마커 -->
@@ -908,7 +951,7 @@ table.data .hl{color:var(--brand);font-weight:800}
            connect-src 를 열어야 합니다. 그 한 줄 때문에 앱 9종까지 전부 열렸습니다.
            이 프로젝트의 다른 자료(좌표·학생수)는 전부 굽는 방식입니다. 뉴스만 달랐습니다.
            `사이트 굽기.command` 가 news-history.json 을 읽어 아래 [] 를 갈아 끼웁니다. -->
-      <script id="news-data" type="application/json">[{"title":"교육교부금 개편 교육현장 반영이 중요","link":"http://www.domin.co.kr/news/articleView.html?idxno=1566503","description":"전북은 소규모 학교들의 통폐합 위기에 놓인 인구소멸이 가속화 지역이다. 천호성 전북교육감이 정부의 국가균형발전 정책에도 역행한다며 반대하는 이유다. 개편이 학령인구 감소에 따른 기계적 예산 감소해서는...","pubDate":"Wed, 26 Aug 2026 18:34:00 +0900"},{"title":"\"규백이 나오라 그래!\" 사관학교 공청회 파행","link":"https://www.mk.co.kr/article/12137051","description":"김홍철 국방부 정책실장은 \"학령인구가 빠르게 감소하는 시대에 이미 대학들이 통폐합을 하고 있다. 사관학교도 예외가 될 수 없다\"면서 육해공 사관학교 통합이 교육개혁을 위한 시대적 요구라고 말했다.","pubDate":"Wed, 26 Aug 2026 17:59:00 +0900"},{"title":"\"포항고, 흥해 달전 신도시로 이전해야\"… 정두락 전 경주교육장 제언","link":"https://www.dkilbo.com/news/articleView.html?idxno=552461","description":"특히 신도시 특성상 젊은 층 비중이 높아 우수한 학령인구를 안정적으로 확보할 수 있다. 이는 곧 포항시... 이와 관련, 정 전 교육장은 과거 서울 경기고의 강남 이전, 대구 경북고의 수성구 이전 사례를 언급하며 \"포항고...","pubDate":"Wed, 26 Aug 2026 17:50:00 +0900"},{"title":"[기고] 포항 교육의 미래를 옮기다","link":"https://www.kyongbuk.co.kr/news/articleView.html?idxno=4082160","description":"특히 포항의 도시공간과 학령인구가 크게 변화하면서 교육수요 역시 달라지고 있다. 학교 선택에 대한... 향후 대구·경북의 광역적 생활권 변화까지 고려한다면 포항의 교육경쟁력을 높이는 일은 더 이상 미룰 수 없는...","pubDate":"Wed, 26 Aug 2026 13:54:00 +0900"},{"title":"\"학교 없애면 지역도 사라진다\"…경남 학부모·전교조 \"학교 통폐합 거...","link":"http://www.dandinews.com/news/articleView.html?idxno=17402","description":"산청초등학교 재건축을 위해 소규모학교를 통폐합하는 방안에 대해서도 의문을 제기했다. 김 씨는 \"산청초등학교의 재건축을 위해 소규모학교를 통폐합하는 것이 정말 최선의 방법인지 묻고 싶다\"며 \"한 학교의 시설...","pubDate":"Wed, 26 Aug 2026 12:50:00 +0900"},{"title":"전교조 세종지부, 교육교부금 개편 철회 촉구","link":"http://www.dtnews24.com/news/articleView.html?idxno=814593","description":"세종은 신도시 지역의 학교 신설과 과밀학급 문제와 함께 읍·면 지역의 소규모 학교 문제를 동시에 안고 있기에 교부세 개편안이 소규모 학교의 통폐합을 가속화 시킨다는 이유에서다. 전교조 세종지부는 \"학생 수만으로...","pubDate":"Wed, 26 Aug 2026 12:38:00 +0900"},{"title":"\"학생 줄었다고 교육비까지 줄이나\"…대구·경북 교육계, 교부금 개편 '...","link":"https://www.bzeronews.com/news/articleView.html?idxno=821657","description":"경북교육청은 이 같은 현실을 고려하지 않고 학령인구 감소를 교부금 규모에 직접 반영할 경우 농산어촌 지역부터 교육여건이 악화되고 지역 간 격차가 커질 수 있다고 보고 있다. 임종식 경북교육감은 \"학생 수가...","pubDate":"Wed, 26 Aug 2026 11:14:00 +0900"},{"title":"“40년 낡은 학교, 미래교육 공간으로”…경북교육청 1350억 투입","link":"https://www.news2day.co.kr/article/20260826500073","description":"학령인구 감소가 지속되는 경북의 지역적 특성을 감안하면 사업 대상 선정 과정에서 학교의 장기적인 교육 수요와 지역 여건을 함께 살피는 것이 중요하다. 대상학교 선정 절차는 8월 공모를 시작으로 9월 신청학교...","pubDate":"Wed, 26 Aug 2026 09:36:00 +0900"},{"title":"지방교육재정 교부금 개편, 작은 학교 통폐합 압력 내몰려","link":"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8646175&ref=A","description":"[앵커] 정부가 지방교육재정교부금 개편을 추진한다는 소식 전해드렸는데요, 교부금 개편으로 지역교육재정이 나빠지면 소규모 학교 통폐합이 더욱 가속화될 것이라는 우려가 나오고 있습니다. 박상현 기자입니다....","pubDate":"Wed, 26 Aug 2026 07:43:00 +0900"},{"title":"\"산청교육청, 생초초교 통폐합 중단하라\"","link":"http://www.gnmaeil.com/news/articleView.html?idxno=593386","description":"경남은 전국에서 가장 많은 13개 시군이 학교 통폐합 사업 신청 대상 지역에 해당한다. 오는 2029년에는 도내 전체 학교 중 전교생 60명 이하 소규모 학교가 전체의 30%에 이를 것으로 전망된다. 이날 생초초...","pubDate":"Tue, 25 Aug 2026 21:26:00 +0900"},{"title":"“경남교육청, 혁신 빌미로 학교 통폐합 앞장”","link":"https://www.knnews.co.kr/news/articleView.php?idxno=1549358","description":"전국교직원노동조합 경남지부가 경남교육청이 교육혁신을 앞세워 소규모 학교 통폐합에 앞장서고 있다고 비판하며 관련 정책 철회를 촉구하고 나섰다. 전교조 경남지부는 25일 오전 도교육청 브리핑룸에서 기자회견을...","pubDate":"Tue, 25 Aug 2026 21:16:00 +0900"},{"title":"전교조경남지부 \"학교 통폐합, 지역소멸 가속화하는 일\"","link":"https://www.gnnews.co.kr/news/articleView.html?idxno=644016","description":"전교조 경남지부는 25일 도교육청 브리핑룸에서 기자회견을 열고 \"교육부가 지난 6월 발표한 '소규모학교 혁신을 통한 지역 교육력 제고 방안'은 학교 통폐합 시 재정 인센티브를 대폭 늘리고 학부모 동의 기준까지 폐지해...","pubDate":"Tue, 25 Aug 2026 19:36:00 +0900"},{"title":"\"소규모학교 통폐합, 돈 주고 학교 없애라는 꼴\"","link":"https://www.idomin.com/news/articleView.html?idxno=2013169","description":"교육부가 지난 6월 10일 '소규모학교 혁신을 통한 지역 교육력 제고 방안'을 발표하며, 학교 통폐합을 본격적으로 추진 중이다. '학교 통폐합 유형 신청 대상 지역'은 인구감소 지역 89곳과 인구감소 관심지역 18곳 등 전국...","pubDate":"Tue, 25 Aug 2026 19:30:00 +0900"},{"title":"\"일방적 교부금 개편 반대\"···전국 교육감들, 반발 '행동으로'","link":"http://www.jeollailbo.com/news/articleView.html?idxno=809146","description":"천호성 전북특별자치도교육감도 참석해 \"이번 개편은 완전한 개악\"이라며 \"전북의 소규모 학교들은 통폐합 위기에 몰릴 수밖에 없다. 지역이 소멸하는데 국가균형발전이 가능하겠느냐\"고 강조했다. 16개 시도교육청은...","pubDate":"Tue, 25 Aug 2026 18:38:00 +0900"},{"title":"\"아이 없으니 돈 줄여라\"…경남교육청, 교부금 개편안 즉각 철회 촉구","link":"http://www.newsprime.co.kr/news/article.html?no=745078","description":"학령인구 감소라는 단순한 인구 통계학적 수치 뒤에 가려진 농산어촌의 교육 인프라 붕괴와 지역소멸 위기가... 강원·전남·경북 등 도농복합 지역은 학생 수가 급감하는 상황에서도 광범위한 농산어촌 학교망을 그대로...","pubDate":"Tue, 25 Aug 2026 16:26:00 +0900"},{"title":"경북교육청, 지방교육재정교부금 개편 반대… \"내국세 20.79% 연동 유지해...","link":"https://www.imaeil.com/page/view/2026082411584589635","description":"79%를 기준으로 배분하는 지방교육재정교부금 산정 방식에 경제성장률과 학령인구 변화 등을 반영하는 방안을 검토하고 있다. 다만 구체적인 개편안은 아직 확정되지 않았다. 경북교육청은 학생 수 감소가 곧바로 교육비...","pubDate":"Tue, 25 Aug 2026 16:24:00 +0900"},{"title":"[N2 뷰] 천호성 전북교육감, 국회서 교부금 개편 정면 비판…“지역소멸...","link":"https://www.news2day.co.kr/article/20260825500141","description":"전국 16개 시도교육감과 긴급 기자회견…내국세 20.79% 연동제 유지 촉구 “소규모 학교 통폐합 압력 커질 수 있어”…정부엔 교육감 참여 공식협의체 요구 정부 “교육재정 축소 아니다”…교부금 산정방식 둘러싼 국회...","pubDate":"Tue, 25 Aug 2026 15:50:00 +0900"},{"title":"경북교육청, 전국 기능경기대회 9년 연속 우승 도전","link":"https://www.cnbnews.com/news/articleView.html?idxno=1012748","description":"전문가들은 경북 직업교육의 지속적인 선전이 단순한 우승 그 이상의 의미를 지닌다고 평가한다. 학령인구 감소와 지방 소멸 위기 속에서도 지자체와 교육청, 일선 학교가 삼위일체가 되어 지역 산업 맞춤형 인재를...","pubDate":"Tue, 25 Aug 2026 14:54:00 +0900"},{"title":"\"경남교육감, 학교 통폐합 추진 입장 밝혀라\"","link":"https://www.pressian.com/pages/articles/2026082514110327219?utm_source=naver&utm_medium=search","description":"전교조 경남은 \"교육부는 지난 6월 10일 소규모학교 혁신을 통한 지역 교육력 제고 방안을 발표하며 일명 '‘통폐합 패키지'를 내놓았다\"며 \"교육혁신 선도지역으로 선정되어 받을 수 있는 학교 통폐합 인센티브는...","pubDate":"Tue, 25 Aug 2026 14:13:00 +0900"},{"title":"[클릭 핫이슈] ‘교육혁신 선도지역’ 참여 양주·포천시… 혁신 기회,...","link":"https://www.kyeongin.com/article/1769590","description":"시골학교 통폐합의 우려도 제기되고 있다. 교육혁신 선도지역은 교육부가 지자체와 교육청, 지역사회가 협력해 지역 여건에 맞는 양질의 교육 생태계 조성을 지원하는 사업이다. 입학생이 줄어 빈 교실이 느는 소규모...","pubDate":"Tue, 25 Aug 2026 13:42:00 +0900"},{"title":"대한민국교육감협의회 “지방교육재정교부금 개편안, 수용 못해”… 정...","link":"http://www.breaknews.com/1231298","description":"경상성장률과 학령인구 변동 등을 반영해 교부금 배분 방식을 조정하는 내용을... in dialogue with city and provincial superintendents.” 원본 기사 보기:브레이크뉴스 대구경북","pubDate":"Tue, 25 Aug 2026 12:58:00 +0900"},{"title":"전북 교육계, 교부금 개편안 잇단 반발…\"농산어촌 교육 위축 우려\"","link":"https://www.newsis.com/view/NISX20260825_0003761570","description":"작은학교의 통폐합 압력으로 이어질 수 있다\"고 주장했다. 이어 \"영유아·고등·평생교육 투자 확대에 필요한 재원은 국가가 별도로 마련해야 한다\"며 \"학생과 학교·학급 수, 소규모학교 분포, 농산어촌 교육 여건 등...","pubDate":"Tue, 25 Aug 2026 11:47:00 +0900"},{"title":"55년 만에 지방교부금 개편…전북 교육 재정 투자 축소되나","link":"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8645062&ref=A","description":"도농 간 교육 격차가 심화하고 소규모 학교의 통폐합이 쇄도할 거라는 우려가 커지고 있습니다. [현직 교사/음성변조 : \"아무리 작은 학교를 지키려 해도 20.79% 이게(내국세 연동)사라지면 어떤 교육감이든 통폐합할...","pubDate":"Tue, 25 Aug 2026 07:57:00 +0900"},{"title":"[사설]지역 교육을 사지로 몰아넣는 교육교부금 개편","link":"https://www.kwnews.co.kr/article/20260824501730","description":"교육 재정이 악화하면 제일 먼저 소규모 학교의 통폐합 압박이 거세지고, 방과 후 수업 및 돌봄, 맞춤형 교육 프로그램 같은 필수 서비스부터 줄어들게 된다. 개편안 논의 과정에서 나타난 정부의 일방통행식 행태도...","pubDate":"Tue, 25 Aug 2026 00:02:00 +0900"},{"title":"학생 수 감소 교부금에 반영…경북 교육재정 위축 우려","link":"https://www.tbc.co.kr/news/view?pno=20260824084047AE04370&id=210154","description":"기획예산처가 내놓은 개편안은 내국세의 20.79%를 교부금으로 자동 편성하던 방식에서 전년도 교부금에 3년 평균 경상성장률과 학령인구 변화율의 35%를 반영하는 방식으로 바꾸는 내용입니다. 경북교육청은 학생이 줄어도...","pubDate":"Mon, 24 Aug 2026 21:16:00 +0900"},{"title":"교부금 개편 1000억 결손 위기…경남교육청, 정부·국회 총력 대응","link":"http://www.newsprime.co.kr/news/article.html?no=744909","description":"및 학령인구 변화율 기반의 새 산식이 도입될 경우 2027년 경남 교육 현장은 심각한 재정 마비 상태에... 그러나 경남을 비롯한 강원·전남·경북 등 농산어촌이 넓게 분포한 비수도권은 사정이 전혀 다르다. 학생 수가...","pubDate":"Mon, 24 Aug 2026 17:06:00 +0900"},{"title":"교육부, 부실대학 이중 압박…학자금 끊고 폐교는 지원","link":"https://www.asiatoday.co.kr/kn/view.php?key=20260824010007843","description":"없고, 경북·전남·전북·충남·충북·부산·제주·강원 등 전국 각지에 흩어져 있다. 일부 제한 4개교 중에서도 서울에 있는 추계예술대학교를 제외하면 나머지는 지방이다. 학령인구 감소가 수도권보다 지방에서 먼저, 더...","pubDate":"Mon, 24 Aug 2026 14:06:00 +0900"},{"title":"학령인구 감소 교부금에 반영…소규모 학교 타격","link":"https://www.tbc.co.kr/news/view?pno=20260824084047AE04370&id=210110","description":"기획예산처가 내놓은 개편안은 내국세의 20.79%를 교부금으로 자동 편성하던 방식에서 전년도 교부금에 3년 평균 경상성장률과 학령인구 변화율의 35%를 반영하는 방식으로 바꾸는 내용입니다. 경북교육청은 학생 수가...","pubDate":"Mon, 24 Aug 2026 11:24:00 +0900"},{"title":"임종식 교육감 \"학생 수 감소... 교육 책임 줄여선 안 돼\"","link":"https://www.gukjenews.com/news/articleView.html?idxno=3672179","description":"임종식 경북교육감.(사진=경북교육청) 이어 \"지방교육재정교부금은 공교육과 지방교육자치를 지키는 법적... 학령인구 감소율을 교부금 산정에 직접 반영할 경우, 농산어촌과 소규모학교가 많은 지역의 교육 여건이...","pubDate":"Mon, 24 Aug 2026 08:54:00 +0900"},{"title":"[사설] 교부세·교육교부금 개편, 지방 자율성 약화시켜선 안 돼","link":"https://www.yeongnam.com/web/view.php?key=20260823021263690","description":"정부는 내국세의 20.79% 자동연동을 폐지하되 경상성장률과 학령인구 변화를 반영하고, 교부금이 전년보다... 대구경북에서는 최근 국가정책과 투자를 둘러싸고 이른바 'TK 패싱' 우려가 이어져 왔다. 중앙정부의 판단이...","pubDate":"Mon, 24 Aug 2026 06:02:00 +0900"},{"title":"[사설] 사립대 구조개선법, 고등교육 재정개혁으로 완성해야","link":"https://news.unn.net/news/articleView.html?idxno=596087","description":"이 법은 사립대의 정상화, 통폐합·폐교·학교법인 해산·청산 등 구조개선을 제도적으로 관리하는 법적 체계를 마련했다는 데 의미가 있다. 학령인구 감소 시대에 대학의 생존과 퇴장을 더 이상 개별 대학의 책임에만...","pubDate":"Mon, 24 Aug 2026 05:56:00 +0900"},{"title":"\"소규모 학교 많은 강원 지역교육 붕괴·소멸 가속\"","link":"https://www.kado.net/news/articleView.html?idxno=2068127","description":"협의회는 \"학령인구가 감소한다고 해서 학교의 역할과 교육재정의 필요성까지 감소하는 것은 아니다\"라며 \"교육재정은 정권이나 부처의 필요에 따라 흔들려서는 안 된다. 교육의 안정적인 미래를 위해 예측 가능하고 지속...","pubDate":"Mon, 24 Aug 2026 00:08:00 +0900"},{"title":"[기고]확증편향에 빠진 육·해·공사 통폐합론의 허구성…“오리형 간부...","link":"https://www.munhwa.com/article/11611329?ref=naver","description":"예상되는 학령인구 감소에 따라 병력이 줄어들고, 사관학교 지원율도 떨어질 수는 있다. 그러나 이는 전략적인 접근으로 대응책을 강구하면 극복될 수 있다. 이참에 육·해·공사 사관생도 정원을 대폭 늘리고, 5년 복무...","pubDate":"Sun, 23 Aug 2026 22:00:00 +0900"},{"title":"유영하 의원 “폐교 재산, 교육·문화시설로 활용”","link":"https://www.ksmnews.co.kr/news/view.php?idx=618616","description":"학령인구 감소가 학교 통·폐합 증가로 이어지는 상황에서 폐교재산을 단순히 남겨두기보다 지역사회가 필요로 하는 교육·문화자원으로 전환해야 한다는 취지다. 특히 지역에서는 학교 수가 감소하는 반면 도서관과...","pubDate":"Sun, 23 Aug 2026 20:34:00 +0900"},{"title":"통영교육지원청 도서·벽지 초·중학생 대상 3박4일 몰입형 영어체험","link":"http://www.gndomin.com/news/articleView.html?idxno=486244","description":"특히 학령인구 감소 속에서 통영 관내 도서·벽지 및 소규모학교 초·중학생들에게 균등한 학습 기회를 제공하고 '작은학교 살리기' 정책을 적극 뒷받침하는 데 초점을 맞추었다. 참가 학생들은 공항, 병원, 은행, 방송국 등...","pubDate":"Sun, 23 Aug 2026 17:52:00 +0900"},{"title":"\"학생 수만으로 교육의 미래를 재단해서는 안 돼\"…경북교육청, 지방교...","link":"https://www.hidomin.com/news/articleView.html?idxno=718145","description":"정부는 현재 내국세의 일정 비율을 자동 배분하는 교부금 제도를 경상성장률과 학령인구 변화 등을 반영하는 방식으로 개편하는 방안을 검토하고 있다. 이에 대해 경북교육청은 단순한 산식 조정이 아니라 초·중등교육...","pubDate":"Sun, 23 Aug 2026 14:38:00 +0900"},{"title":"학생 줄어도 지출은 그대로…경북교육청, 교부금 개편에 '재정 부담'","link":"https://daily.hankooki.com/news/articleView.html?idxno=1398235","description":"정부는 현재 내국세의 20.79%를 지방교육재정교부금으로 자동 배분하는 현행 방식을 바꾸고, 3년 평균 경제성장률과 3년 평균 학령인구 변화율의 35%를 반영해 교부금 규모를 산정하는 방안을 추진한다. 경북 도내 초·중...","pubDate":"Sun, 23 Aug 2026 10:12:00 +0900"},{"title":"대구·경북교육감 \"학생 줄어도 교육수요 늘어…교부금 개편 반대\"(종합...","link":"https://daily.hankooki.com/news/articleView.html?idxno=1398216","description":"그는 \"경북은 농산어촌과 도서·벽지, 소규모 학교와 분교가 넓게 분포해 학생 수가 줄어도 학교 운영에 필요한 기본 비용이 크게 감소하지 않는다\"고 말했다. 이어 \"학령인구 감소율을 교부금 산정에 직접 반영하면...","pubDate":"Sun, 23 Aug 2026 10:04:00 +0900"},{"title":"천호성 교육감 \"지방교육재정교부금 개편은 헌법적 가치 파괴\"","link":"https://www.pressian.com/pages/articles/2026082306325543589?utm_source=naver&utm_medium=search","description":"교부금 감소는 농산어촌·소규모 학교의 교육 여건을 약화시켜 학교 통폐합 압력을 높이고, 지역 간 교육격차를 심화시켜 지역소멸을 더욱 가속화할 수 있다는 우려다. 여기다 급식, 돌봄, 정서지원, 안전관리, 다문화...","pubDate":"Sun, 23 Aug 2026 07:44:00 +0900"},{"title":"반세기 지켜온 '내국세 20.79%' 교육교부금 결국 폐지, 교육계 반발 확산","link":"http://www.domin.co.kr/news/articleView.html?idxno=1566022","description":"전교조 전북지부는 \"학생 수 변화를 교부금 감액의 주요 지표로 삼는 새 제도는 전북자치도 내 소규모 학교들에게 '재정 옥죄기'를 넘어 '강제 통폐합'이라는 이중고를 안길 공산이 크다\"며 \"AI 맞춤형 교육, 학생 마음건강...","pubDate":"Sat, 22 Aug 2026 11:56:00 +0900"},{"title":"임종식 경북교육감, “학생 수 기준, 지방교육재정교부금 내국세 연동제...","link":"https://www.wikitree.co.kr/articles/1154006","description":"79% 연동 방식을 폐지하고 경상성장률과 학령인구 변화 등을 반영하는 방향으로 개편을 추진한다고 밝혔다.경북교육청은 이번 개편이 단순한 교부금 산정 방식의 조정을 넘어, 국가가 유·초·중·고 교육을 위해 안정적으로...","pubDate":"Sat, 22 Aug 2026 07:00:00 +0900"},{"title":"경북교육청, “교육교부금 산정 방식 개편 안돼”…정부 방안 강력 반발","link":"http://www.breaknews.com/1230603","description":"내국세와 연동하는 기존 방식에서 벗어나, 앞으로는 경상성장률이나 학령인구 변화 등을 새로운 기준으로 반영하는 안도 언급되고 있다. 경북교육청은 이런 변화가...","pubDate":"Fri, 21 Aug 2026 17:26:00 +0900"},{"title":"교육교부금 내국세 연동 폐지···소규모 학교 영향 우려","link":"https://www.newsmin.co.kr/news/136258/","description":"경상성장률과 학령인구 변화율을 반영하는 방식으로 바꾼다는 내용이다. 개편안에 따른 교부금이 기존 방식보다 줄어들 것으로 예상되는 가운데, 특히 경북과 같은 소규모 학교 비율이 높은 지역의 타격이 더 크다는...","pubDate":"Fri, 21 Aug 2026 15:50:00 +0900"},{"title":"제주교총 \"학교·마을 존립 흔들...교부금 개편 철회하라\"","link":"https://www.jejudomin.co.kr/news/articleView.html?idxno=321498","description":"제주교총은 \"소규모학교와 도서지역 학교가 많은 제주에서 교부금 축소가 학교 통폐합 압력과 지역 공동체 위기로 이어질 수 있다\"고 밝혔다. 또한 \"미래대응기금의 교육 분야 재원 규모와 사용 범위가 법률로 보장되지...","pubDate":"Fri, 21 Aug 2026 15:38:00 +0900"},{"title":"제주교총 \"정부 지방교부금 개편, 공교육 재정 근간 허물어\"","link":"https://www.jejusori.net/news/articleView.html?idxno=505759","description":"특히 제주의 경우 \"전국 교부금 총액이 줄면 어떠한 완충장치도 없이 제주교육재정이 자동으로 줄어드는 구조\"라며 \"교부금 축소는 곧 소규모학교 통폐합 압력이자 지역 공동체의 위기\"라고 강조했다. 제주교총은 국회에...","pubDate":"Fri, 21 Aug 2026 14:12:00 +0900"},{"title":"\"헌법 정신 훼손·지역소멸 촉진\"…전북교육청, 지방교육재정교부금 개...","link":"http://www.jeonmin.co.kr/news/articleView.html?idxno=445504","description":"농산어촌과 소규모 학교부터 타격을 받을 수 있다는 우려다. 교부금 감소는 학교 통폐합 압력을 높이고 지역 간 교육격차를 심화시켜 지역소멸을 가속화할 수 있다고 전북교육청은 설명했다. 천호성 교육감은...","pubDate":"Fri, 21 Aug 2026 08:16:00 +0900"},{"title":"이선호 KEDI 연구원 \"교육교부금 축소는 위험한 선택 .. 교육격차 커질...","link":"https://www.edupress.kr/news/articleView.html?idxno=30407","description":"소규모 학교 통폐합에도 한계가 있다. 고정비용은 계속 늘어나는데 재정은 줄이겠다는 식의 개편으로는 늘어나는 수요를 감당할 수 없다. 그런 점에서 기획예산처의 교부금 축소 개편은 매우 위험한 선택이다....","pubDate":"Thu, 20 Aug 2026 15:12:00 +0900"},{"title":"강원 초중고생 5년 뒤 2만 명 줄어든다… 교육재정·지역소멸 우려","link":"https://www.hankookilbo.com/news/article/A2026082013130001285?did=NA","description":"학령인구 감소로 학교 통폐합이 잇따르는 가운데 교육재정까지 축소될 경우 지역 간 교육 격차가 커질 수... 정부가 학령인구를 기준으로 교육재정을 편성할 경우 농·산·어촌 소규모 학교가 많은 강원의 교육...","pubDate":"Thu, 20 Aug 2026 14:28:00 +0900"},{"title":"전북교육청, 지방교육재정교부금 개편 반발…\"지역소멸 가속 우려“","link":"https://www.asiatoday.co.kr/kn/view.php?key=20260820010006517","description":"교부금 감소는 농산어촌·소규모 학교의 교육 여건을 약화시켜 학교 통폐합 압력을 높이고, 지역 간 교육격차를 심화시켜 지역소멸을 더욱 가속화할 수 있다는 우려다. 여기다 급식, 돌봄, 정서지원, 안전관리, 다문화...","pubDate":"Thu, 20 Aug 2026 13:46:00 +0900"},{"title":"강원 학생수 5년 후 2만명 감소⋯교육재정 확보가 ‘관건’","link":"https://www.kwnews.co.kr/article/20260819501565","description":"학생 수 감소에 따라 학교 통폐합도 진행된다. 내년 △흥전초교(삼척) △신리초교(평창)... 관계없이 학교 운영에 필요한 고정비용은 지속적으로 증가하고 있다”며 “특히 강��처럼 소규모 학교가 많은...","pubDate":"Thu, 20 Aug 2026 00:07:00 +0900"},{"title":"[기고]사관학교는 ‘특정 정권의 전리품’이 아니다…미래전 대비 미명...","link":"https://www.munhwa.com/article/11610542?ref=naver","description":"물론 소규모의 특수부대가 연합 및 합동전력 지원을 받아서 하는 특수임무 작전은 예외이다. 지금... 그 이후 육·해공·사의 교육체계나 통폐합 문제를 논의해야 하는 게 순서다. 위에 열거한 모든 과정이 국방부...","pubDate":"Wed, 19 Aug 2026 23:48:00 +0900"},{"title":"[인터뷰] 김석준 부산교육감 \"학생 수 줄어도 학교 일률적 통폐합 안해...","link":"https://www.pressian.com/pages/articles/2026081811042955117?utm_source=naver&utm_medium=search","description":"이유만으로 학교를 일률적으로 통폐합하지 않겠습니다\" 학령인구 감소와 원도심·서부산의 교육격차, 학교... 원도심과 소규모학교는 학교의 특성과 지역 여건을 고려한 맞춤형 지원을 강화하겠다는 생각을 밝혔다. 특히...","pubDate":"Wed, 19 Aug 2026 13:51:00 +0900"},{"title":"경북도의회 교육위원회, 경북교육 2030 대전환 현장 안착 강조","link":"https://biz.heraldcorp.com/article/10842769?ref=naver","description":"정한석 위원장은 이날 경북교육의 미래 방향을 공유하고 새롭게 제시된 비전이 학교 현장의 실질적인 변화로 이어져야 한다고 강조했다. 또 인공지능의 확산과 학령인구 감소, 지역소멸 등 급변하는 교육환경 속에서...","pubDate":"Sun, 16 Aug 2026 17:29:00 +0900"},{"title":"강원도교육청·화천군·화천교육청, 소규모학교 살린다","link":"https://www.pressian.com/pages/articles/2026081510513406970?utm_source=naver&utm_medium=search","description":"세 기관은 지방 행정과 교육행정 협력 체계를 구축해 화천 지역 여건에 맞는 교육 모델을 만들고 소규모학교 교육 생태계를 개편하기로 했다. 협약에 따라 세 기관은 학령인구 감소와 접경지역 특성을 고려한 '화천형 연계...","pubDate":"Sat, 15 Aug 2026 12:18:00 +0900"},{"title":"'좀비대학' 퇴로 열렸지만…'운영 여력 충분' 사립대 선제 폐교 우려","link":"https://www.news1.kr/society/education/6259741","description":"해당 유형 대학들은 학령인구 감소와 접근성 등의 이유로 신입생 모집이 어려운 상황이다. 교육부 관계자는 \"학교 입장에서는 민감한 문제이기 때문에 교육부 차원에서는 폐교를 추진하려는 움직임을 확인하기 어렵다\"며...","pubDate":"Sat, 15 Aug 2026 07:12:00 +0900"},{"title":"[가평 소식] 가평군·교육지원청, 교육혁신선도지역 지정 '총력전' 외","link":"http://www.enewstoday.co.kr/news/articleView.html?idxno=2459289","description":"이번 협의회는 학령인구 감소와 소규모학교 증가 등 지역 교육이 직면한 위기에 공동 대응하고, 가평의 특성을 반영한 새로운 교육생태계를 구축하기 위해 마련됐다. 특히 양 기관은 '지역교육혁신협의체'를 중심으로...","pubDate":"Fri, 14 Aug 2026 21:18:00 +0900"},{"title":"교총 등 긴급행동 “교육재정교부금 개편 중단하라”","link":"https://www.hangyo.com/news/article.html?no=108869","description":"교육재정이 줄면 노후시설 개선과 돌봄·특수·AI 교육 등의 확대가 어려워지고, 소규모 학교 통폐합과 지역 간 교육격차가 심화될 수 있다는 우려다. 강원 지역 학교운영위원장협의회와 18개 시·군 협의회, 경남도의회...","pubDate":"Fri, 14 Aug 2026 19:48:00 +0900"},{"title":"“AI 넘어 ‘아이의 꿈’으로…임종식, 경북교육 2030 대전환 선언”","link":"https://www.news2day.co.kr/article/20260814500324","description":"임종식 교육감, ‘나의 꿈을 가꾸는 따뜻한 경북교육’ 공식 선포 AI 전환·맞춤성장·안심학교·지역상생... 인공지능(AI) 확산과 학령인구 감소, 지역소멸 등 급격하게 변화하는 교육환경에 대응하면서도 기술이나...","pubDate":"Fri, 14 Aug 2026 18:46:00 +0900"},{"title":"전북교육청·전북도·14개 시군, 지역소멸 위기 공동 대응","link":"https://www.pressian.com/pages/articles/2026081412595332553?utm_source=naver&utm_medium=search","description":"시군이 학령인구 감소와 지역소멸 위기에 공동 대응하기 위해 행·재정적 협력체계를 구축한다. 천호성... 소규모 학교 혁신 방안 마련 △교육혁신선도지역 등 국고보조사업 공동 기획·추진 등 4대 핵심 분야에서 협력을...","pubDate":"Fri, 14 Aug 2026 16:50:00 +0900"},{"title":"R]경북교육 4년 방향 '2030 대전환' 제시..우려도","link":"http://andongmbc.co.kr/adboard/NewsView84208","description":"있고, '초연결학교'는 학령인구 감소에 따른 학교 통·폐합의 대안 성격이어서 자칫 교육의 질 하락으로 이어지지 않을까 걱정합니다. ◀ INT ▶ 권용수 전교조 경북지부장 \"기존 교사 수가 부족한 것을 온라인으로...","pubDate":"Thu, 13 Aug 2026 21:28:00 +0900"}]</script>
+      <script id="news-data" type="application/json">[{"title":"예비역도, 학부모도, 생도도 반대…\"왜 사관학교 통폐합하는지 이해 안...","link":"https://www.dailian.co.kr/news/view/1682868/?sc=Naver","description":"강병철 예비역 공군 준장은 \"학령 인구가 감소한다는 사실만으로 사관학교 통합이라는 결론이 자동적으로 도출되는 것이 아니다\"라며 \"여러 대안 중에서 사관학교 통합이라는 대안이 왜 가장 결정적이고 좋다고...","pubDate":"Wed, 26 Aug 2026 21:00:00 +0900"},{"title":"교육교부금 개편 교육현장 반영이 중요","link":"http://www.domin.co.kr/news/articleView.html?idxno=1566503","description":"전북은 소규모 학교들의 통폐합 위기에 놓인 인구소멸이 가속화 지역이다. 천호성 전북교육감이 정부의 국가균형발전 정책에도 역행한다며 반대하는 이유다. 개편이 학령인구 감소에 따른 기계적 예산 감소해서는...","pubDate":"Wed, 26 Aug 2026 18:34:00 +0900"},{"title":"\"규백이 나오라 그래!\" 사관학교 공청회 파행","link":"https://www.mk.co.kr/article/12137051","description":"김홍철 국방부 정책실장은 \"학령인구가 빠르게 감소하는 시대에 이미 대학들이 통폐합을 하고 있다. 사관학교도 예외가 될 수 없다\"면서 육해공 사관학교 통합이 교육개혁을 위한 시대적 요구라고 말했다.","pubDate":"Wed, 26 Aug 2026 17:59:00 +0900"},{"title":"\"포항고, 흥해 달전 신도시로 이전해야\"… 정두락 전 경주교육장 제언","link":"https://www.dkilbo.com/news/articleView.html?idxno=552461","description":"특히 신도시 특성상 젊은 층 비중이 높아 우수한 학령인구를 안정적으로 확보할 수 있다. 이는 곧 포항시... 이와 관련, 정 전 교육장은 과거 서울 경기고의 강남 이전, 대구 경북고의 수성구 이전 사례를 언급하며 \"포항고...","pubDate":"Wed, 26 Aug 2026 17:50:00 +0900"},{"title":"[기고] 포항 교육의 미래를 옮기다","link":"https://www.kyongbuk.co.kr/news/articleView.html?idxno=4082160","description":"특히 포항의 도시공간과 학령인구가 크게 변화하면서 교육수요 역시 달라지고 있다. 학교 선택에 대한... 향후 대구·경북의 광역적 생활권 변화까지 고려한다면 포항의 교육경쟁력을 높이는 일은 더 이상 미룰 수 없는...","pubDate":"Wed, 26 Aug 2026 13:54:00 +0900"},{"title":"\"학교 없애면 지역도 사라진다\"…경남 학부모·전교조 \"학교 통폐합 거...","link":"http://www.dandinews.com/news/articleView.html?idxno=17402","description":"산청초등학교 재건축을 위해 소규모학교를 통폐합하는 방안에 대해서도 의문을 제기했다. 김 씨는 \"산청초등학교의 재건축을 위해 소규모학교를 통폐합하는 것이 정말 최선의 방법인지 묻고 싶다\"며 \"한 학교의 시설...","pubDate":"Wed, 26 Aug 2026 12:50:00 +0900"},{"title":"전교조 세종지부, 교육교부금 개편 철회 촉구","link":"http://www.dtnews24.com/news/articleView.html?idxno=814593","description":"세종은 신도시 지역의 학교 신설과 과밀학급 문제와 함께 읍·면 지역의 소규모 학교 문제를 동시에 안고 있기에 교부세 개편안이 소규모 학교의 통폐합을 가속화 시킨다는 이유에서다. 전교조 세종지부는 \"학생 수만으로...","pubDate":"Wed, 26 Aug 2026 12:38:00 +0900"},{"title":"\"학생 줄었다고 교육비까지 줄이나\"…대구·경북 교육계, 교부금 개편 '...","link":"https://www.bzeronews.com/news/articleView.html?idxno=821657","description":"경북교육청은 이 같은 현실을 고려하지 않고 학령인구 감소를 교부금 규모에 직접 반영할 경우 농산어촌 지역부터 교육여건이 악화되고 지역 간 격차가 커질 수 있다고 보고 있다. 임종식 경북교육감은 \"학생 수가...","pubDate":"Wed, 26 Aug 2026 11:14:00 +0900"},{"title":"“40년 낡은 학교, 미래교육 공간으로”…경북교육청 1350억 투입","link":"https://www.news2day.co.kr/article/20260826500073","description":"학령인구 감소가 지속되는 경북의 지역적 특성을 감안하면 사업 대상 선정 과정에서 학교의 장기적인 교육 수요와 지역 여건을 함께 살피는 것이 중요하다. 대상학교 선정 절차는 8월 공모를 시작으로 9월 신청학교...","pubDate":"Wed, 26 Aug 2026 09:36:00 +0900"},{"title":"지방교육재정 교부금 개편, 작은 학교 통폐합 압력 내몰려","link":"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8646175&ref=A","description":"[앵커] 정부가 지방교육재정교부금 개편을 추진한다는 소식 전해드렸는데요, 교부금 개편으로 지역교육재정이 나빠지면 소규모 학교 통폐합이 더욱 가속화될 것이라는 우려가 나오고 있습니다. 박상현 기자입니다....","pubDate":"Wed, 26 Aug 2026 07:43:00 +0900"},{"title":"\"산청교육청, 생초초교 통폐합 중단하라\"","link":"http://www.gnmaeil.com/news/articleView.html?idxno=593386","description":"경남은 전국에서 가장 많은 13개 시군이 학교 통폐합 사업 신청 대상 지역에 해당한다. 오는 2029년에는 도내 전체 학교 중 전교생 60명 이하 소규모 학교가 전체의 30%에 이를 것으로 전망된다. 이날 생초초...","pubDate":"Tue, 25 Aug 2026 21:26:00 +0900"},{"title":"“경남교육청, 혁신 빌미로 학교 통폐합 앞장”","link":"https://www.knnews.co.kr/news/articleView.php?idxno=1549358","description":"전국교직원노동조합 경남지부가 경남교육청이 교육혁신을 앞세워 소규모 학교 통폐합에 앞장서고 있다고 비판하며 관련 정책 철회를 촉구하고 나섰다. 전교조 경남지부는 25일 오전 도교육청 브리핑룸에서 기자회견을...","pubDate":"Tue, 25 Aug 2026 21:16:00 +0900"},{"title":"전교조경남지부 \"학교 통폐합, 지역소멸 가속화하는 일\"","link":"https://www.gnnews.co.kr/news/articleView.html?idxno=644016","description":"전교조 경남지부는 25일 도교육청 브리핑룸에서 기자회견을 열고 \"교육부가 지난 6월 발표한 '소규모학교 혁신을 통한 지역 교육력 제고 방안'은 학교 통폐합 시 재정 인센티브를 대폭 늘리고 학부모 동의 기준까지 폐지해...","pubDate":"Tue, 25 Aug 2026 19:36:00 +0900"},{"title":"\"소규모학교 통폐합, 돈 주고 학교 없애라는 꼴\"","link":"https://www.idomin.com/news/articleView.html?idxno=2013169","description":"교육부가 지난 6월 10일 '소규모학교 혁신을 통한 지역 교육력 제고 방안'을 발표하며, 학교 통폐합을 본격적으로 추진 중이다. '학교 통폐합 유형 신청 대상 지역'은 인구감소 지역 89곳과 인구감소 관심지역 18곳 등 전국...","pubDate":"Tue, 25 Aug 2026 19:30:00 +0900"},{"title":"\"일방적 교부금 개편 반대\"···전국 교육감들, 반발 '행동으로'","link":"http://www.jeollailbo.com/news/articleView.html?idxno=809146","description":"천호성 전북특별자치도교육감도 참석해 \"이번 개편은 완전한 개악\"이라며 \"전북의 소규모 학교들은 통폐합 위기에 몰릴 수밖에 없다. 지역이 소멸하는데 국가균형발전이 가능하겠느냐\"고 강조했다. 16개 시도교육청은...","pubDate":"Tue, 25 Aug 2026 18:38:00 +0900"},{"title":"\"아이 없으니 돈 줄여라\"…경남교육청, 교부금 개편안 즉각 철회 촉구","link":"http://www.newsprime.co.kr/news/article.html?no=745078","description":"학령인구 감소라는 단순한 인구 통계학적 수치 뒤에 가려진 농산어촌의 교육 인프라 붕괴와 지역소멸 위기가... 강원·전남·경북 등 도농복합 지역은 학생 수가 급감하는 상황에서도 광범위한 농산어촌 학교망을 그대로...","pubDate":"Tue, 25 Aug 2026 16:26:00 +0900"},{"title":"경북교육청, 지방교육재정교부금 개편 반대… \"내국세 20.79% 연동 유지해...","link":"https://www.imaeil.com/page/view/2026082411584589635","description":"79%를 기준으로 배분하는 지방교육재정교부금 산정 방식에 경제성장률과 학령인구 변화 등을 반영하는 방안을 검토하고 있다. 다만 구체적인 개편안은 아직 확정되지 않았다. 경북교육청은 학생 수 감소가 곧바로 교육비...","pubDate":"Tue, 25 Aug 2026 16:24:00 +0900"},{"title":"[N2 뷰] 천호성 전북교육감, 국회서 교부금 개편 정면 비판…“지역소멸...","link":"https://www.news2day.co.kr/article/20260825500141","description":"전국 16개 시도교육감과 긴급 기자회견…내국세 20.79% 연동제 유지 촉구 “소규모 학교 통폐합 압력 커질 수 있어”…정부엔 교육감 참여 공식협의체 요구 정부 “교육재정 축소 아니다”…교부금 산정방식 둘러싼 국회...","pubDate":"Tue, 25 Aug 2026 15:50:00 +0900"},{"title":"경북교육청, 전국 기능경기대회 9년 연속 우승 도전","link":"https://www.cnbnews.com/news/articleView.html?idxno=1012748","description":"전문가들은 경북 직업교육의 지속적인 선전이 단순한 우승 그 이상의 의미를 지닌다고 평가한다. 학령인구 감소와 지방 소멸 위기 속에서도 지자체와 교육청, 일선 학교가 삼위일체가 되어 지역 산업 맞춤형 인재를...","pubDate":"Tue, 25 Aug 2026 14:54:00 +0900"},{"title":"\"경남교육감, 학교 통폐합 추진 입장 밝혀라\"","link":"https://www.pressian.com/pages/articles/2026082514110327219?utm_source=naver&utm_medium=search","description":"전교조 경남은 \"교육부는 지난 6월 10일 소규모학교 혁신을 통한 지역 교육력 제고 방안을 발표하며 일명 '‘통폐합 패키지'를 내놓았다\"며 \"교육혁신 선도지역으로 선정되어 받을 수 있는 학교 통폐합 인센티브는...","pubDate":"Tue, 25 Aug 2026 14:13:00 +0900"},{"title":"[클릭 핫이슈] ‘교육혁신 선도지역’ 참여 양주·포천시… 혁신 기회,...","link":"https://www.kyeongin.com/article/1769590","description":"시골학교 통폐합의 우려도 제기되고 있다. 교육혁신 선도지역은 교육부가 지자체와 교육청, 지역사회가 협력해 지역 여건에 맞는 양질의 교육 생태계 조성을 지원하는 사업이다. 입학생이 줄어 빈 교실이 느는 소규모...","pubDate":"Tue, 25 Aug 2026 13:42:00 +0900"},{"title":"대한민국교육감협의회 “지방교육재정교부금 개편안, 수용 못해”… 정...","link":"http://www.breaknews.com/1231298","description":"경상성장률과 학령인구 변동 등을 반영해 교부금 배분 방식을 조정하는 내용을... in dialogue with city and provincial superintendents.” 원본 기사 보기:브레이크뉴스 대구경북","pubDate":"Tue, 25 Aug 2026 12:58:00 +0900"},{"title":"전북 교육계, 교부금 개편안 잇단 반발…\"농산어촌 교육 위축 우려\"","link":"https://www.newsis.com/view/NISX20260825_0003761570","description":"작은학교의 통폐합 압력으로 이어질 수 있다\"고 주장했다. 이어 \"영유아·고등·평생교육 투자 확대에 필요한 재원은 국가가 별도로 마련해야 한다\"며 \"학생과 학교·학급 수, 소규모학교 분포, 농산어촌 교육 여건 등...","pubDate":"Tue, 25 Aug 2026 11:47:00 +0900"},{"title":"55년 만에 지방교부금 개편…전북 교육 재정 투자 축소되나","link":"https://news.kbs.co.kr/news/pc/view/view.do?ncd=8645062&ref=A","description":"도농 간 교육 격차가 심화하고 소규모 학교의 통폐합이 쇄도할 거라는 우려가 커지고 있습니다. [현직 교사/음성변조 : \"아무리 작은 학교를 지키려 해도 20.79% 이게(내국세 연동)사라지면 어떤 교육감이든 통폐합할...","pubDate":"Tue, 25 Aug 2026 07:57:00 +0900"},{"title":"[사설]지역 교육을 사지로 몰아넣는 교육교부금 개편","link":"https://www.kwnews.co.kr/article/20260824501730","description":"교육 재정이 악화하면 제일 먼저 소규모 학교의 통폐합 압박이 거세지고, 방과 후 수업 및 돌봄, 맞춤형 교육 프로그램 같은 필수 서비스부터 줄어들게 된다. 개편안 논의 과정에서 나타난 정부의 일방통행식 행태도...","pubDate":"Tue, 25 Aug 2026 00:02:00 +0900"},{"title":"학생 수 감소 교부금에 반영…경북 교육재정 위축 우려","link":"https://www.tbc.co.kr/news/view?pno=20260824084047AE04370&id=210154","description":"기획예산처가 내놓은 개편안은 내국세의 20.79%를 교부금으로 자동 편성하던 방식에서 전년도 교부금에 3년 평균 경상성장률과 학령인구 변화율의 35%를 반영하는 방식으로 바꾸는 내용입니다. 경북교육청은 학생이 줄어도...","pubDate":"Mon, 24 Aug 2026 21:16:00 +0900"},{"title":"교부금 개편 1000억 결손 위기…경남교육청, 정부·국회 총력 대응","link":"http://www.newsprime.co.kr/news/article.html?no=744909","description":"및 학령인구 변화율 기반의 새 산식이 도입될 경우 2027년 경남 교육 현장은 심각한 재정 마비 상태에... 그러나 경남을 비롯한 강원·전남·경북 등 농산어촌이 넓게 분포한 비수도권은 사정이 전혀 다르다. 학생 수가...","pubDate":"Mon, 24 Aug 2026 17:06:00 +0900"},{"title":"교육부, 부실대학 이중 압박…학자금 끊고 폐교는 지원","link":"https://www.asiatoday.co.kr/kn/view.php?key=20260824010007843","description":"없고, 경북·전남·전북·충남·충북·부산·제주·강원 등 전국 각지에 흩어져 있다. 일부 제한 4개교 중에서도 서울에 있는 추계예술대학교를 제외하면 나머지는 지방이다. 학령인구 감소가 수도권보다 지방에서 먼저, 더...","pubDate":"Mon, 24 Aug 2026 14:06:00 +0900"},{"title":"학령인구 감소 교부금에 반영…소규모 학교 타격","link":"https://www.tbc.co.kr/news/view?pno=20260824084047AE04370&id=210110","description":"기획예산처가 내놓은 개편안은 내국세의 20.79%를 교부금으로 자동 편성하던 방식에서 전년도 교부금에 3년 평균 경상성장률과 학령인구 변화율의 35%를 반영하는 방식으로 바꾸는 내용입니다. 경북교육청은 학생 수가...","pubDate":"Mon, 24 Aug 2026 11:24:00 +0900"},{"title":"임종식 교육감 \"학생 수 감소... 교육 책임 줄여선 안 돼\"","link":"https://www.gukjenews.com/news/articleView.html?idxno=3672179","description":"임종식 경북교육감.(사진=경북교육청) 이어 \"지방교육재정교부금은 공교육과 지방교육자치를 지키는 법적... 학령인구 감소율을 교부금 산정에 직접 반영할 경우, 농산어촌과 소규모학교가 많은 지역의 교육 여건이...","pubDate":"Mon, 24 Aug 2026 08:54:00 +0900"},{"title":"[사설] 교부세·교육교부금 개편, 지방 자율성 약화시켜선 안 돼","link":"https://www.yeongnam.com/web/view.php?key=20260823021263690","description":"정부는 내국세의 20.79% 자동연동을 폐지하되 경상성장률과 학령인구 변화를 반영하고, 교부금이 전년보다... 대구경북에서는 최근 국가정책과 투자를 둘러싸고 이른바 'TK 패싱' 우려가 이어져 왔다. 중앙정부의 판단이...","pubDate":"Mon, 24 Aug 2026 06:02:00 +0900"},{"title":"[사설] 사립대 구조개선법, 고등교육 재정개혁으로 완성해야","link":"https://news.unn.net/news/articleView.html?idxno=596087","description":"이 법은 사립대의 정상화, 통폐합·폐교·학교법인 해산·청산 등 구조개선을 제도적으로 관리하는 법적 체계를 마련했다는 데 의미가 있다. 학령인구 감소 시대에 대학의 생존과 퇴장을 더 이상 개별 대학의 책임에만...","pubDate":"Mon, 24 Aug 2026 05:56:00 +0900"},{"title":"\"소규모 학교 많은 강원 지역교육 붕괴·소멸 가속\"","link":"https://www.kado.net/news/articleView.html?idxno=2068127","description":"협의회는 \"학령인구가 감소한다고 해서 학교의 역할과 교육재정의 필요성까지 감소하는 것은 아니다\"라며 \"교육재정은 정권이나 부처의 필요에 따라 흔들려서는 안 된다. 교육의 안정적인 미래를 위해 예측 가능하고 지속...","pubDate":"Mon, 24 Aug 2026 00:08:00 +0900"},{"title":"[기고]확증편향에 빠진 육·해·공사 통폐합론의 허구성…“오리형 간부...","link":"https://www.munhwa.com/article/11611329?ref=naver","description":"예상되는 학령인구 감소에 따라 병력이 줄어들고, 사관학교 지원율도 떨어질 수는 있다. 그러나 이는 전략적인 접근으로 대응책을 강구하면 극복될 수 있다. 이참에 육·해·공사 사관생도 정원을 대폭 늘리고, 5년 복무...","pubDate":"Sun, 23 Aug 2026 22:00:00 +0900"},{"title":"유영하 의원 “폐교 재산, 교육·문화시설로 활용”","link":"https://www.ksmnews.co.kr/news/view.php?idx=618616","description":"학령인구 감소가 학교 통·폐합 증가로 이어지는 상황에서 폐교재산을 단순히 남겨두기보다 지역사회가 필요로 하는 교육·문화자원으로 전환해야 한다는 취지다. 특히 지역에서는 학교 수가 감소하는 반면 도서관과...","pubDate":"Sun, 23 Aug 2026 20:34:00 +0900"},{"title":"통영교육지원청 도서·벽지 초·중학생 대상 3박4일 몰입형 영어체험","link":"http://www.gndomin.com/news/articleView.html?idxno=486244","description":"특히 학령인구 감소 속에서 통영 관내 도서·벽지 및 소규모학교 초·중학생들에게 균등한 학습 기회를 제공하고 '작은학교 살리기' 정책을 적극 뒷받침하는 데 초점을 맞추었다. 참가 학생들은 공항, 병원, 은행, 방송국 등...","pubDate":"Sun, 23 Aug 2026 17:52:00 +0900"},{"title":"\"학생 수만으로 교육의 미래를 재단해서는 안 돼\"…경북교육청, 지방교...","link":"https://www.hidomin.com/news/articleView.html?idxno=718145","description":"정부는 현재 내국세의 일정 비율을 자동 배분하는 교부금 제도를 경상성장률과 학령인구 변화 등을 반영하는 방식으로 개편하는 방안을 검토하고 있다. 이에 대해 경북교육청은 단순한 산식 조정이 아니라 초·중등교육...","pubDate":"Sun, 23 Aug 2026 14:38:00 +0900"},{"title":"학생 줄어도 지출은 그대로…경북교육청, 교부금 개편에 '재정 부담'","link":"https://daily.hankooki.com/news/articleView.html?idxno=1398235","description":"정부는 현재 내국세의 20.79%를 지방교육재정교부금으로 자동 배분하는 현행 방식을 바꾸고, 3년 평균 경제성장률과 3년 평균 학령인구 변화율의 35%를 반영해 교부금 규모를 산정하는 방안을 추진한다. 경북 도내 초·중...","pubDate":"Sun, 23 Aug 2026 10:12:00 +0900"},{"title":"대구·경북교육감 \"학생 줄어도 교육수요 늘어…교부금 개편 반대\"(종합...","link":"https://daily.hankooki.com/news/articleView.html?idxno=1398216","description":"그는 \"경북은 농산어촌과 도서·벽지, 소규모 학교와 분교가 넓게 분포해 학생 수가 줄어도 학교 운영에 필요한 기본 비용이 크게 감소하지 않는다\"고 말했다. 이어 \"학령인구 감소율을 교부금 산정에 직접 반영하면...","pubDate":"Sun, 23 Aug 2026 10:04:00 +0900"},{"title":"천호성 교육감 \"지방교육재정교부금 개편은 헌법적 가치 파괴\"","link":"https://www.pressian.com/pages/articles/2026082306325543589?utm_source=naver&utm_medium=search","description":"교부금 감소는 농산어촌·소규모 학교의 교육 여건을 약화시켜 학교 통폐합 압력을 높이고, 지역 간 교육격차를 심화시켜 지역소멸을 더욱 가속화할 수 있다는 우려다. 여기다 급식, 돌봄, 정서지원, 안전관리, 다문화...","pubDate":"Sun, 23 Aug 2026 07:44:00 +0900"},{"title":"반세기 지켜온 '내국세 20.79%' 교육교부금 결국 폐지, 교육계 반발 확산","link":"http://www.domin.co.kr/news/articleView.html?idxno=1566022","description":"전교조 전북지부는 \"학생 수 변화를 교부금 감액의 주요 지표로 삼는 새 제도는 전북자치도 내 소규모 학교들에게 '재정 옥죄기'를 넘어 '강제 통폐합'이라는 이중고를 안길 공산이 크다\"며 \"AI 맞춤형 교육, 학생 마음건강...","pubDate":"Sat, 22 Aug 2026 11:56:00 +0900"},{"title":"임종식 경북교육감, “학생 수 기준, 지방교육재정교부금 내국세 연동제...","link":"https://www.wikitree.co.kr/articles/1154006","description":"79% 연동 방식을 폐지하고 경상성장률과 학령인구 변화 등을 반영하는 방향으로 개편을 추진한다고 밝혔다.경북교육청은 이번 개편이 단순한 교부금 산정 방식의 조정을 넘어, 국가가 유·초·중·고 교육을 위해 안정적으로...","pubDate":"Sat, 22 Aug 2026 07:00:00 +0900"},{"title":"경북교육청, “교육교부금 산정 방식 개편 안돼”…정부 방안 강력 반발","link":"http://www.breaknews.com/1230603","description":"내국세와 연동하는 기존 방식에서 벗어나, 앞으로는 경상성장률이나 학령인구 변화 등을 새로운 기준으로 반영하는 안도 언급되고 있다. 경북교육청은 이런 변화가...","pubDate":"Fri, 21 Aug 2026 17:26:00 +0900"},{"title":"교육교부금 내국세 연동 폐지···소규모 학교 영향 우려","link":"https://www.newsmin.co.kr/news/136258/","description":"경상성장률과 학령인구 변화율을 반영하는 방식으로 바꾼다는 내용이다. 개편안에 따른 교부금이 기존 방식보다 줄어들 것으로 예상되는 가운데, 특히 경북과 같은 소규모 학교 비율이 높은 지역의 타격이 더 크다는...","pubDate":"Fri, 21 Aug 2026 15:50:00 +0900"},{"title":"제주교총 \"학교·마을 존립 흔들...교부금 개편 철회하라\"","link":"https://www.jejudomin.co.kr/news/articleView.html?idxno=321498","description":"제주교총은 \"소규모학교와 도서지역 학교가 많은 제주에서 교부금 축소가 학교 통폐합 압력과 지역 공동체 위기로 이어질 수 있다\"고 밝혔다. 또한 \"미래대응기금의 교육 분야 재원 규모와 사용 범위가 법률로 보장되지...","pubDate":"Fri, 21 Aug 2026 15:38:00 +0900"},{"title":"제주교총 \"정부 지방교부금 개편, 공교육 재정 근간 허물어\"","link":"https://www.jejusori.net/news/articleView.html?idxno=505759","description":"특히 제주의 경우 \"전국 교부금 총액이 줄면 어떠한 완충장치도 없이 제주교육재정이 자동으로 줄어드는 구조\"라며 \"교부금 축소는 곧 소규모학교 통폐합 압력이자 지역 공동체의 위기\"라고 강조했다. 제주교총은 국회에...","pubDate":"Fri, 21 Aug 2026 14:12:00 +0900"},{"title":"\"헌법 정신 훼손·지역소멸 촉진\"…전북교육청, 지방교육재정교부금 개...","link":"http://www.jeonmin.co.kr/news/articleView.html?idxno=445504","description":"농산어촌과 소규모 학교부터 타격을 받을 수 있다는 우려다. 교부금 감소는 학교 통폐합 압력을 높이고 지역 간 교육격차를 심화시켜 지역소멸을 가속화할 수 있다고 전북교육청은 설명했다. 천호성 교육감은...","pubDate":"Fri, 21 Aug 2026 08:16:00 +0900"},{"title":"이선호 KEDI 연구원 \"교육교부금 축소는 위험한 선택 .. 교육격차 커질...","link":"https://www.edupress.kr/news/articleView.html?idxno=30407","description":"소규모 학교 통폐합에도 한계가 있다. 고정비용은 계속 늘어나는데 재정은 줄이겠다는 식의 개편으로는 늘어나는 수요를 감당할 수 없다. 그런 점에서 기획예산처의 교부금 축소 개편은 매우 위험한 선택이다....","pubDate":"Thu, 20 Aug 2026 15:12:00 +0900"},{"title":"강원 초중고생 5년 뒤 2만 명 줄어든다… 교육재정·지역소멸 우려","link":"https://www.hankookilbo.com/news/article/A2026082013130001285?did=NA","description":"학령인구 감소로 학교 통폐합이 잇따르는 가운데 교육재정까지 축소될 경우 지역 간 교육 격차가 커질 수... 정부가 학령인구를 기준으로 교육재정을 편성할 경우 농·산·어촌 소규모 학교가 많은 강원의 교육...","pubDate":"Thu, 20 Aug 2026 14:28:00 +0900"},{"title":"전북교육청, 지방교육재정교부금 개편 반발…\"지역소멸 가속 우려“","link":"https://www.asiatoday.co.kr/kn/view.php?key=20260820010006517","description":"교부금 감소는 농산어촌·소규모 학교의 교육 여건을 약화시켜 학교 통폐합 압력을 높이고, 지역 간 교육격차를 심화시켜 지역소멸을 더욱 가속화할 수 있다는 우려다. 여기다 급식, 돌봄, 정서지원, 안전관리, 다문화...","pubDate":"Thu, 20 Aug 2026 13:46:00 +0900"},{"title":"강원 학생수 5년 후 2만명 감소⋯교육재정 확보가 ‘관건’","link":"https://www.kwnews.co.kr/article/20260819501565","description":"학생 수 감소에 따라 학교 통폐합도 진행된다. 내년 △흥전초교(삼척) △신리초교(평창)... 관계없이 학교 운영에 필요한 고정비용은 지속적으로 증가하고 있다”며 “특히 강��처럼 소규모 학교가 많은...","pubDate":"Thu, 20 Aug 2026 00:07:00 +0900"},{"title":"[기고]사관학교는 ‘특정 정권의 전리품’이 아니다…미래전 대비 미명...","link":"https://www.munhwa.com/article/11610542?ref=naver","description":"물론 소규모의 특수부대가 연합 및 합동전력 지원을 받아서 하는 특수임무 작전은 예외이다. 지금... 그 이후 육·해공·사의 교육체계나 통폐합 문제를 논의해야 하는 게 순서다. 위에 열거한 모든 과정이 국방부...","pubDate":"Wed, 19 Aug 2026 23:48:00 +0900"},{"title":"[인터뷰] 김석준 부산교육감 \"학생 수 줄어도 학교 일률적 통폐합 안해...","link":"https://www.pressian.com/pages/articles/2026081811042955117?utm_source=naver&utm_medium=search","description":"이유만으로 학교를 일률적으로 통폐합하지 않겠습니다\" 학령인구 감소와 원도심·서부산의 교육격차, 학교... 원도심과 소규모학교는 학교의 특성과 지역 여건을 고려한 맞춤형 지원을 강화하겠다는 생각을 밝혔다. 특히...","pubDate":"Wed, 19 Aug 2026 13:51:00 +0900"},{"title":"경북도의회 교육위원회, 경북교육 2030 대전환 현장 안착 강조","link":"https://biz.heraldcorp.com/article/10842769?ref=naver","description":"정한석 위원장은 이날 경북교육의 미래 방향을 공유하고 새롭게 제시된 비전이 학교 현장의 실질적인 변화로 이어져야 한다고 강조했다. 또 인공지능의 확산과 학령인구 감소, 지역소멸 등 급변하는 교육환경 속에서...","pubDate":"Sun, 16 Aug 2026 17:29:00 +0900"},{"title":"강원도교육청·화천군·화천교육청, 소규모학교 살린다","link":"https://www.pressian.com/pages/articles/2026081510513406970?utm_source=naver&utm_medium=search","description":"세 기관은 지방 행정과 교육행정 협력 체계를 구축해 화천 지역 여건에 맞는 교육 모델을 만들고 소규모학교 교육 생태계를 개편하기로 했다. 협약에 따라 세 기관은 학령인구 감소와 접경지역 특성을 고려한 '화천형 연계...","pubDate":"Sat, 15 Aug 2026 12:18:00 +0900"},{"title":"'좀비대학' 퇴로 열렸지만…'운영 여력 충분' 사립대 선제 폐교 우려","link":"https://www.news1.kr/society/education/6259741","description":"해당 유형 대학들은 학령인구 감소와 접근성 등의 이유로 신입생 모집이 어려운 상황이다. 교육부 관계자는 \"학교 입장에서는 민감한 문제이기 때문에 교육부 차원에서는 폐교를 추진하려는 움직임을 확인하기 어렵다\"며...","pubDate":"Sat, 15 Aug 2026 07:12:00 +0900"},{"title":"[가평 소식] 가평군·교육지원청, 교육혁신선도지역 지정 '총력전' 외","link":"http://www.enewstoday.co.kr/news/articleView.html?idxno=2459289","description":"이번 협의회는 학령인구 감소와 소규모학교 증가 등 지역 교육이 직면한 위기에 공동 대응하고, 가평의 특성을 반영한 새로운 교육생태계를 구축하기 위해 마련됐다. 특히 양 기관은 '지역교육혁신협의체'를 중심으로...","pubDate":"Fri, 14 Aug 2026 21:18:00 +0900"},{"title":"교총 등 긴급행동 “교육재정교부금 개편 중단하라”","link":"https://www.hangyo.com/news/article.html?no=108869","description":"교육재정이 줄면 노후시설 개선과 돌봄·특수·AI 교육 등의 확대가 어려워지고, 소규모 학교 통폐합과 지역 간 교육격차가 심화될 수 있다는 우려다. 강원 지역 학교운영위원장협의회와 18개 시·군 협의회, 경남도의회...","pubDate":"Fri, 14 Aug 2026 19:48:00 +0900"},{"title":"“AI 넘어 ‘아이의 꿈’으로…임종식, 경북교육 2030 대전환 선언”","link":"https://www.news2day.co.kr/article/20260814500324","description":"임종식 교육감, ‘나의 꿈을 가꾸는 따뜻한 경북교육’ 공식 선포 AI 전환·맞춤성장·안심학교·지역상생... 인공지능(AI) 확산과 학령인구 감소, 지역소멸 등 급격하게 변화하는 교육환경에 대응하면서도 기술이나...","pubDate":"Fri, 14 Aug 2026 18:46:00 +0900"},{"title":"전북교육청·전북도·14개 시군, 지역소멸 위기 공동 대응","link":"https://www.pressian.com/pages/articles/2026081412595332553?utm_source=naver&utm_medium=search","description":"시군이 학령인구 감소와 지역소멸 위기에 공동 대응하기 위해 행·재정적 협력체계를 구축한다. 천호성... 소규모 학교 혁신 방안 마련 △교육혁신선도지역 등 국고보조사업 공동 기획·추진 등 4대 핵심 분야에서 협력을...","pubDate":"Fri, 14 Aug 2026 16:50:00 +0900"}]</script>
 
       <div class="news-grid" id="news-container" aria-live="polite">
         <div style="padding:40px; text-align:center; color:var(--ink-3); grid-column:1/-1;">뉴스를 불러오는 중입니다...</div>
@@ -934,7 +977,8 @@ table.data .hl{color:var(--brand);font-weight:800}
     <div class="sim-wrap">
       <!-- 조회군 필터 -->
       <div class="card">
-        <h2>조회군 필터</h2>
+        <h2>기준연도 2026 · 조회 조건</h2>
+        <p style="margin:-4px 0 6px;color:var(--ink-3);font-size:11.5px;line-height:1.55">아래 조건은 기준자료와 예측자료에 함께 적용됩니다.</p>
 
         <div class="filter-group">
           <div class="lb">지역</div>
@@ -1018,9 +1062,28 @@ table.data .hl{color:var(--brand);font-weight:800}
           </div>
         </div>
 
+        <div class="result-actions no-print">
+          <span style="font-size:11.5px;color:var(--ink-3)">현재 조건의 기준·예측 비교표</span>
+          <button type="button" class="chip" id="sim-export-xls">Excel(.xls)로 저장</button>
+        </div>
+
+        <div class="card ai-briefing" id="ai-briefing">
+          <span class="ai-kicker">Gemini 3.7 Flash · 정책 검토 보조</span>
+          <h2>AI 정책 검토 브리핑</h2>
+          <p class="ai-purpose"><b>무엇을 하나요?</b> 지금 선택한 지역·학교급·예측연도의 집계값을 읽고, 회의에서 먼저 확인할 정책 쟁점을 초안으로 정리합니다. 정책을 자동 결정하거나 미래를 확정 예측하는 기능은 아닙니다.</p>
+          <div class="ai-purpose-list" aria-label="AI 분석 결과 구성">
+            <span>① 학생수 변화 요약</span><span>② 운영 위험·한계</span><span>③ 정책 검토 질문</span><span>④ 추가로 필요한 자료</span>
+          </div>
+          <div class="ai-context-preview" id="ai-context-preview">현재 조건을 계산하는 중입니다.</div>
+          <button type="button" class="chip" id="ai-analyze">이 결과로 정책 검토안 만들기</button>
+          <span id="ai-status" role="status" aria-live="polite" style="margin-left:8px;color:var(--ink-3);font-size:12px"></span>
+          <div id="ai-output" class="ai-output" aria-live="polite">아직 분석하지 않았습니다. 실행하면 변화 요약, 위험과 한계, 정책 검토 질문, 추가 확인자료가 여기에 표시됩니다.</div>
+          <p style="margin:9px 0 0;color:var(--ink-3);font-size:11.5px;line-height:1.55">개별 학생·교직원 정보는 보내지 않고 화면에 표시된 집계값만 전송합니다. 무료 사용량이 끝나거나 연결이 실패하면 같은 집계값의 기본 요약으로 전환합니다.</p>
+        </div>
+
         <!-- 기준 전환 -->
         <div class="basis">
-          <h3>산출 기준 <span style="font-weight:400;font-size:11.5px;color:var(--ink-3)">— 무엇을 고정할지 고르면 나머지가 결과로 나옵니다</span></h3>
+          <h3>예측연도 산출 기준 <span style="font-weight:400;font-size:11.5px;color:var(--ink-3)">— 무엇을 고정할지 고르면 나머지가 결과로 나옵니다</span></h3>
 
           <fieldset id="fs-sch">
             <legend><label><input type="radio" name="basis-mode" value="sch" checked> 학교 수 기준</label></legend>
@@ -1054,13 +1117,6 @@ table.data .hl{color:var(--brand);font-weight:800}
           <br>남은 입력은 <b>출생아수</b>(D1)와 여러 해치 실적입니다 — <code>bake-students.mjs --year=2025</code> 처럼 연도를 바꿔 돌리면 진급률이 나오고, 백테스트(2016→2026)도 됩니다.
         </div>
 
-        <div class="card" style="margin-top:14px">
-          <h2>Gemini 정책 분석</h2>
-          <p style="margin:0;color:var(--ink-2);font-size:12.5px">현재 필터의 <b>집계값만</b> Gemini 3.7 Flash로 보냅니다. 학생·교직원 개인자료는 입력하지 마세요.</p>
-          <button type="button" class="chip" id="ai-analyze" style="margin-top:12px">현재 결과 분석하기</button>
-          <span id="ai-status" role="status" aria-live="polite" style="margin-left:8px;color:var(--ink-3);font-size:12px"></span>
-          <div id="ai-output" class="ai-output" aria-live="polite">분석을 실행하면 여기에 결과가 표시됩니다.</div>
-        </div>
       </div>
     </div>
   </section>
@@ -2623,9 +2679,9 @@ function renderSgisMarkers(){
     });
     sgisMap.addLayer(sgisLayer);
     document.getElementById('sgis-status').textContent =
-      `SGIS 온라인 지도 · 현재 조건의 좌표 확보 학교 ${fmt(list.length)}곳`;
+      `실제 위치 지도 · 현재 조건의 좌표 확보 학교 ${fmt(list.length)}곳 (SGIS)`;
   }catch(_e){
-    document.getElementById('sgis-status').textContent = 'SGIS 마커를 표시하지 못했습니다. 오프라인 지도를 이용해 주세요.';
+    document.getElementById('sgis-status').textContent = '실제 위치를 표시하지 못했습니다. 간편 지도를 이용해 주세요.';
   }
 }
 
@@ -2649,7 +2705,7 @@ function setMapMode(mode){
   const status = document.getElementById('sgis-status');
   let fallbackMessage = '';
   if(online && !initSgisMap()){
-    fallbackMessage = 'SGIS 온라인 지도를 불러오지 못했습니다. 인터넷·배포 환경을 확인해 주세요. 오프라인 지도를 유지합니다.';
+    fallbackMessage = '실제 위치 지도를 불러오지 못했습니다. 인터넷·배포 환경을 확인해 주세요. 간편 지도를 유지합니다.';
     mode = 'offline';
   }
 
@@ -2660,7 +2716,7 @@ function setMapMode(mode){
   document.getElementById('home-online-map').hidden = !isOnline;
   document.getElementById('home-tilemap').hidden = isOnline || !!homeState.sel;
   document.getElementById('home-detail').hidden = isOnline || !homeState.sel;
-  document.getElementById('home-reset').hidden = isOnline || !homeState.sel;
+  document.getElementById('home-reset').hidden = !homeState.sel;
   document.getElementById('map-help').textContent = isOnline
     ? '마커를 선택하면 학교 정보가 표시됩니다'
     : '타일을 선택하면 시군 상세로 전환됩니다';
@@ -2669,7 +2725,7 @@ function setMapMode(mode){
     renderSgisMarkers();
     if(sgisMap?.invalidateSize) setTimeout(() => sgisMap.invalidateSize(), 0);
   }else{
-    status.textContent = fallbackMessage || '오프라인 경계 지도 사용 중 · 인터넷 연결 없이도 작동합니다';
+    status.textContent = fallbackMessage || '간편 지도 사용 중 · 인터넷 연결 없이도 작동합니다';
     if(homeState.sel) renderDetail(); else renderTilemap();
   }
 }
@@ -3112,7 +3168,7 @@ function renderDetailMap(sg, lv, list){
     <line x1="10" y1="-3" x2="10" y2="3" stroke="#334155" stroke-width="2"/>
     <line x1="60" y1="-3" x2="60" y2="3" stroke="#334155" stroke-width="2"/>
     <text x="35" y="-4" font-size="9" font-weight="bold" fill="#334155" text-anchor="middle">약 ${kmDist>0?kmDist:5}km</text>
-    <text x="68" y="2" font-size="8" fill="#64748b">오프라인 SGIS 경계 지도</text>
+    <text x="68" y="2" font-size="8" fill="#64748b">간편 경계 지도</text>
   </g>`;
 
   const missing = list.length - pts.length;
@@ -3296,10 +3352,18 @@ function setMetric(m){
 }
 document.getElementById('home-reset').addEventListener('click', () => {
   homeState.sel = null;
-  document.getElementById('home-tilemap').hidden = false;
+  document.getElementById('home-tilemap').hidden = homeState.mapMode === 'online';
   document.getElementById('home-detail').hidden = true;
   document.getElementById('home-reset').hidden = true;
   renderTilemap();
+  if(homeState.mapMode === 'online'){
+    renderSgisMarkers();
+    if(sgisMap && window.sop){
+      const center = new window.sop.LatLng(36.35, 128.85);
+      sgisMap.setView(window.sop.utmk(center.x, center.y), 3);
+      if(sgisMap.invalidateSize) setTimeout(() => sgisMap.invalidateSize(), 0);
+    }
+  }
 });
 document.getElementById('color-by-level').addEventListener('click', () => setColorBy('level'));
 document.getElementById('color-by-density').addEventListener('click', () => setColorBy('density'));
@@ -3566,20 +3630,23 @@ function project(base, predStu, drop){
 }
 
 let aiContext = '';
+let simExportRows = [];
 function renderSim(){
   const lv = sim.level;
   const list = filteredSigungu();
   const yrs = sim.year - 2026;
 
-  // 도 전체(필터 무관) 행
-  const allBase = SIGUNGU.reduce((a,sg)=>{
+  // '전체' 행도 현재 조회 조건을 따릅니다. 예전에는 지역 필터를 무시해
+  // AI가 '선택 지역'이라고 쓰면서 경북 전체 합계를 받는 모순이 있었습니다.
+  const allBase = list.reduce((a,sg)=>{
     const b=aggregate(sg,lv); a.stu+=b.stu; a.cls+=b.cls; a.sch+=b.sch; return a;
   },{stu:0,cls:0,sch:0});
   let allPredStu=0;
-  SIGUNGU.forEach(sg=>{ const b=aggregate(sg,lv); allPredStu += b.stu*Math.pow(1-BASE[lv][sg.s].rate, yrs); });
+  list.forEach(sg=>{ const b=aggregate(sg,lv); allPredStu += b.stu*Math.pow(1-BASE[lv][sg.s].rate, yrs); });
   allPredStu = Math.round(allPredStu);
 
   const rowsBase=[], rowsPred=[];
+  simExportRows = [];
   const push = (label, base, predStu, isTotal) => {
     const perBase = base.cls>0 ? base.stu/base.cls : 0;
     const drop = base.stu>0 ? 1 - predStu/base.stu : 0;
@@ -3591,6 +3658,7 @@ function renderSim(){
     const t = isTotal ? ' class="total"' : '';
     rowsBase.push(`<tr${t}><td>${label}</td><td>${fmt(base.stu)}</td><td>${fmt(base.cls)}</td><td>${fmt(base.sch)}</td><td>${perBase.toFixed(1)}</td></tr>`);
     rowsPred.push(`<tr${t}><td>${label}</td><td>${fmt(predStu)}</td><td class="down">${(drop*100).toFixed(1)}</td><td class="${cSC}">${fmt(p.cls)}</td><td class="${cSC}">${fmt(p.sch)}</td><td class="${cPP}">${perPred.toFixed(1)}</td></tr>`);
+    simExportRows.push({label,base:{...base},predStu,drop,projection:{...p},perBase,perPred,isTotal});
   };
 
   push('전체', allBase, allPredStu, true);
@@ -3603,14 +3671,22 @@ function renderSim(){
 
   document.getElementById('base-tbody').innerHTML = rowsBase.join('');
   document.getElementById('pred-tbody').innerHTML = rowsPred.join('');
+  const regionLabel = list.length===SIGUNGU.length ? '경북 전체' : (list.length ? list.map(s=>s.name).join(', ') : '선택된 지역 없음');
+  const totalRow = simExportRows[0];
+  const dropPct = allBase.stu>0 ? (100*(1-allPredStu/allBase.stu)).toFixed(1) : '0.0';
   aiContext = [
+    '분석 목적: 정책 검토 회의용 초안',
     `학교급: ${LEVEL_CFG[lv].full}`,
     `예측연도: ${sim.year}`,
-    `선택 지역: ${list.length===SIGUNGU.length?'경북 전체':list.map(s=>s.name).join(', ')}`,
+    `선택 지역: ${regionLabel}`,
     `2026 실적: 학생 ${fmt(allBase.stu)}명, 학급 ${fmt(allBase.cls)}개, 학교 ${fmt(allBase.sch)}교`,
-    `${sim.year} 모의값: 학생 ${fmt(allPredStu)}명`,
-    '주의: 예측값은 출생·이동 코호트가 아닌 임시 감소율 적용값이며 지역 간 이동을 제외함.'
+    `${sim.year} 모의값: 학생 ${fmt(allPredStu)}명, 학급 ${fmt(totalRow?.projection.cls || 0)}개, 학교 ${fmt(totalRow?.projection.sch || 0)}교`,
+    `학생수 변화율: -${dropPct}%`,
+    '주의: 예측값은 출생·이동 코호트가 아닌 임시 감소율 적용값이며 지역 간 이동을 제외함.',
+    '응답 형식: 1) 핵심 변화 2) 학교 운영 검토 신호 3) 정책 검토 질문 4) 추가 확인자료 5) 분석 한계'
   ].join('\n');
+  document.getElementById('ai-context-preview').textContent =
+    `${regionLabel} · ${LEVEL_CFG[lv].full} · 2026년 ${fmt(allBase.stu)}명 → ${sim.year}년 모의 ${fmt(allPredStu)}명 (${dropPct}% 감소)`;
 
   // 활성 모드에 따라 비활성 그룹 흐리게
   const mode = document.querySelector('input[name="basis-mode"]:checked').value;
@@ -3642,24 +3718,62 @@ function renderSim(){
 }
 
 function localAiFallback(){
-  return `오프라인 요약\n\n${aiContext}\n\n외부 AI에 연결하지 못해 수치만 요약했습니다. 예측값은 정책 판단의 확정 근거가 아니며, 코호트 자료와 지역 이동 자료를 확보한 뒤 다시 검증해야 합니다.`;
+  return `기본 정책 검토 요약\n\n[핵심 변화]\n${aiContext}\n\n[정책 검토 질문]\n- 현재 학교·학급 운영 여건에서 이 감소 폭을 감당할 수 있는가?\n- 통학거리, 교육과정 선택권, 지역 간 이동을 함께 검토했는가?\n\n[추가 확인자료]\n- 출생 코호트, 전입·전출, 읍면동별 학생 거주지, 학교별 시설·통학 자료\n\n[한계]\n외부 AI에 연결하지 못해 규칙 기반으로 정리했습니다. 모의값은 정책 판단의 확정 근거가 아닙니다.`;
 }
+
+function xmlEsc(v){
+  return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function exportSimXls(){
+  const head = ['지역','2026 학생수','2026 학급수','2026 학교수','2026 학급당 학생수',`${sim.year} 학생수`,'감소율(%)',`${sim.year} 학급수`,`${sim.year} 학교수`,`${sim.year} 학급당 학생수`];
+  const rowXml = values => `<tr>${values.map(v=>`<td>${xmlEsc(v)}</td>`).join('')}</tr>`;
+  const rows = simExportRows.map(r => rowXml([
+    r.label,r.base.stu,r.base.cls,r.base.sch,r.perBase.toFixed(1),r.predStu,(r.drop*100).toFixed(1),r.projection.cls,r.projection.sch,r.perPred.toFixed(1)
+  ])).join('');
+  const meta = aiContext.split('\n').map(line=>`<p>${xmlEsc(line)}</p>`).join('');
+  const workbook = `<!doctype html><html><head><meta charset="UTF-8"><style>table{border-collapse:collapse}th,td{border:1px solid #888;padding:6px}th{background:#eaf1fb}</style></head><body><h1>경북 학생수 시뮬레이션 비교표</h1>${meta}<table>${rowXml(head).replace(/td>/g,'th>')}${rows}</table><p>예측값은 임시 감소율 모의값이며 지역 간 이동을 제외합니다.</p></body></html>`;
+  const blob = new Blob(['\ufeff',workbook],{type:'application/vnd.ms-excel;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=`경북_학생수_시뮬레이션_${sim.level}_${sim.year}.xls`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),0);
+}
+document.getElementById('sim-export-xls').addEventListener('click', exportSimXls);
 document.getElementById('ai-analyze').addEventListener('click', async () => {
   const btn=document.getElementById('ai-analyze'), status=document.getElementById('ai-status'), out=document.getElementById('ai-output');
-  btn.disabled=true; status.textContent='분석 중…'; out.textContent='집계값을 안전하게 전송하고 있습니다.';
+  btn.disabled=true; status.textContent='정책 검토안을 만드는 중…'; out.textContent='현재 조건의 집계값만 안전하게 전송하고 있습니다.';
   try{
     const res=await fetch('/api/ai-analysis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:aiContext})});
     const data=await res.json();
     if(!res.ok || !data.text) throw new Error(data.error || 'AI 응답 오류');
-    out.textContent=data.text; status.textContent='Gemini 분석 완료';
+    out.textContent=data.text; status.textContent=`${data.model || 'Gemini'} 분석 완료`;
   }catch(e){
-    out.textContent=localAiFallback(); status.textContent='오프라인 요약으로 전환';
+    out.textContent=localAiFallback(); status.textContent=`기본 요약으로 전환 · ${e.message || 'AI 연결 실패'}`;
   }finally{ btn.disabled=false; }
 });
 
 /* =========================================================
-   6. 테마 — LEAP Kit 의 toggleTheme / restoreTheme 과 같은 방식
+   6. 용어 도움말 · 테마
    ========================================================= */
+(function(){
+  const openBtn=document.getElementById('glossary-toggle');
+  const closeBtn=document.getElementById('glossary-close');
+  const drawer=document.getElementById('glossary-drawer');
+  const backdrop=document.getElementById('glossary-backdrop');
+  function setOpen(open){
+    if(open){ drawer.classList.add('open'); backdrop.classList.add('open'); }
+    else { drawer.classList.remove('open'); backdrop.classList.remove('open'); }
+    drawer.setAttribute('aria-hidden', String(!open));
+    openBtn.setAttribute('aria-expanded', String(open));
+    if(open) closeBtn.focus(); else openBtn.focus();
+  }
+  openBtn.addEventListener('click',()=>setOpen(true));
+  closeBtn.addEventListener('click',()=>setOpen(false));
+  backdrop.addEventListener('click',()=>setOpen(false));
+  window.addEventListener('keydown',e=>{ if(e.key==='Escape' && drawer.getAttribute('aria-hidden')==='false') setOpen(false); });
+})();
+
 (function(){
   try{
     const t = localStorage.getItem('leap-theme');
